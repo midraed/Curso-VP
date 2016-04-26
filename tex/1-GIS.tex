@@ -1,0 +1,142 @@
+\documentclass{beamer}
+
+\mode<presentation>
+\usetheme{Madrid}
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % hyphenation 
+\usepackage{times}
+\usepackage{tikz}
+
+\setbeamercovered{dynamic}
+
+\title[GIS]{Introducción a Sistemas de Información Geográfica}
+\subtitle[]{Curso de Zonificación Vitícola y Viticultura de Precisión}
+
+
+\author[G.F. Olmedo]{Ing. Agr. Guillermo Federico Olmedo}
+
+\institute[INTA] % (optional, but mostly needed)
+{ Laboratorio de Geomática\\
+  Recursos Naturales\\
+  INTA EEA Mendoza\\
+  \vskip10pt
+\begin{columns}
+	\column{.5\textwidth}
+	\begin{flushright}
+		\includegraphics[width=1.7cm]{logoINTA}
+	\end{flushright}
+	\column{.5\textwidth}
+	\begin{flushleft}
+		\includegraphics[width=1.7cm]{yo}
+	\end{flushleft}
+\end{columns}  
+}
+
+\date[FCA, 16-20/05/2016]{Fac. de Cs. Agrarias, 16 al 20 de mayo de 2016}
+
+\pgfdeclareimage[height=0.5cm]{university-logo}{logoINTA}
+\logo{\pgfuseimage{university-logo}}
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+	\tableofcontents[pausesections]
+	% You might wish to add the option [pausesections]
+\end{frame}
+
+\section{Introducción}
+
+\begin{frame}{Que es un SIG?}
+Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuente: Wikipedia}, es una integración organizada de \textit{hardware}, \textit{software} y datos \textit{geográficos} diseñada para capturar, almacenar, manipular y analizar información \textit{geográficamente referenciada} con el fin de resolver problemas complejos de planificación y gestión.
+\end{frame}
+
+\begin{frame}[plain]{}
+	\includegraphics[width=\textwidth]{googleea}
+\end{frame}
+
+\begin{frame}[plain]{}
+	\includegraphics[width=\textwidth]{QGIS}
+\end{frame}
+
+\begin{frame}[plain]{}
+	\includegraphics[width=\textwidth]{GIS}
+\end{frame}
+
+\section{Información}
+
+\begin{frame}{Tipos de información espacial}{Raster}
+	\begin{columns}
+		\column{.45\textwidth}
+			\begin{itemize}
+				\item Es una matriz ordenada de celdas en filas y columnas. Cada celda (píxel) toma un valor único. Generalmente representan datos continuos, son más importantes las propiedades del espacio que la precisión de la localización.
+				\item<6> En algunos formatos se suelen “apilar” diferentes variables, pudiendo luego ver el valor de las variables para una misma ubicación.
+			\end{itemize}
+		\column{.45\textwidth}
+		    \begin{figure}
+		    	\includegraphics<1>[width=0.8\textwidth]{raster1}
+		    	\includegraphics<2>[width=0.8\textwidth]{raster2}
+		    	\includegraphics<3>[width=0.8\textwidth]{raster3}
+		    	\includegraphics<4>[width=0.8\textwidth]{raster4}
+		    	\includegraphics<5>[width=0.8\textwidth]{raster5}
+		    	\includegraphics<6>[width=0.9\textwidth]{multi}
+		    \end{figure} 
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Tipos de información espacial}{Tipos de Raster}
+	\begin{itemize}[<+->]
+		\item Raster continuos\\
+		Generalmente representan una propiedad física continua. 
+		Por ejemplo: la altitud, la reflectancia a una longitud de onda determinada o el valor de NDVI.
+		\item Raster temáticos\\
+		Los píxels toman un valor discreto que corresponde a una clase. Una variación de estos son los raster booleanos, que toman valor 1 o 0 de acuerdo a la pertenencia o no a una clase.
+		Por ej.: zonas de alto o bajo vigor; suelos con freática o no.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos de información espacial}{Vectorial}
+	\begin{columns}
+		\column{.45\textwidth}
+		\begin{itemize}
+			\item Pueden ser puntos, líneas o polígonos. 
+			\item Generalmente representan datos discretos, donde la precisión de la localización en el factor más importante. 
+			\item Cada entidad esta ligada a una base de datos.
+		\end{itemize}
+		\column{.45\textwidth}
+		\begin{figure}
+			\includegraphics[width=0.8\textwidth]{vector}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{title}
+	\begin{columns}[t]
+		\column{.45\textwidth}
+		Raster
+		\begin{itemize}
+			\item Información continua
+			\item Análisis entre capas
+		\end{itemize}
+		\column{.45\textwidth}
+		Vectorial
+		\begin{itemize}
+			\item Información discreta
+			\item Menos volumen de datos
+			\item Representación independiente de la escala
+		\end{itemize}
+	\end{columns}
+\end{frame}
+
+
+
+\end{document}
+
