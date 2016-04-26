@@ -118,7 +118,7 @@ Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuen
 	\end{columns}
 \end{frame}
 
-\begin{frame}{title}
+\begin{frame}{Tipos de información espacial}
 	\begin{columns}[t]
 		\column{.45\textwidth}
 		Raster
@@ -136,6 +136,59 @@ Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuen
 	\end{columns}
 \end{frame}
 
+\section{Sistemas de Referencia}
+
+\begin{frame}{Sistemas de Referencia}
+	\begin{itemize}
+		\item Es un conjunto de normas y convenciones que permite ubicar un punto en el espacio.
+		\item Está compuesto por: 
+		\begin{itemize}
+			\item Geoide de Referencia
+			\item Sistema de Coordenadas
+			\item Proyección Cartográfica
+			\item Marco de Referencia - Datum 
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Sistemas de Referencia}{Geoide de Referencia}
+	\begin{columns}[]
+		\column{.45\textwidth}
+		\begin{itemize}
+			\item Internacional de 1924
+			\item WGS 1984
+		\end{itemize}
+		\column{.45\textwidth}
+		\includegraphics[width=\textwidth]{geoide}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Sistemas de Referencia}{Sistema de Coordenadas}
+		\begin{columns}[]
+			\column{.45\textwidth}
+			Coordenadas Geográficas
+			\begin{itemize}
+				\item La latitud mide el ángulo entre cualquier punto y el ecuador.
+				\item La longitud mide el ángulo a lo largo del ecuador desde cualquier punto de la Tierra.
+			\end{itemize}
+		\column{.45\textwidth}
+		\includegraphics[width=\textwidth]{latlon}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Sistemas de Referencia}{Proyección cartográfica}
+		\begin{itemize}
+			\item Proyecciones conformes: conservan los ángulos. Se utilizan para la navegación. Son útiles para las representaciones de las características geológicas.
+			\item Proyecciones equivalentes: conservan las superficies.
+			\item Proyecciones equidistantes: conservan las distancias.
+		\end{itemize}	
+			Según el tipo:
+		\begin{itemize}
+			\item Proyecciones azimutales o cenitales.
+			\item Proyecciones cilíndricas.
+			\item Proyecciones cónicas. 
+		\end{itemize}
+\end{frame}
 
 
 \end{document}
