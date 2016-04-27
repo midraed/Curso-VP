@@ -8,6 +8,7 @@
 \usepackage[T1]{fontenc} % hyphenation 
 \usepackage{times}
 \usepackage{tikz}
+\usepackage{booktabs}
 
 \setbeamercovered{dynamic}
 
@@ -189,6 +190,50 @@ Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuen
 			\item Proyecciones cónicas. 
 		\end{itemize}
 \end{frame}
+
+\begin{frame}{Sistemas de Referencia}{Coordenadas Planas}
+		\begin{itemize}
+			\item Coordenadas UTM
+		\end{itemize}
+\end{frame}
+
+\begin{frame}{Sistemas de Referencia}{Marco de referencia - Datum}
+		Es un conjunto de puntos sobre la superficie terrestre que materializa el sistema de referencia.
+		\begin{itemize}
+			\item Chos Malal 1914
+			\item Campo Inchauspe 1969
+			\item PosGAR 1994
+			\item PosGAR 1998
+		\end{itemize}
+\end{frame}
+
+\begin{frame}{Sistemas de Referencia}{Marco Oficial Argentino}
+			\begin{itemize}
+				\item  POSGAR98 Faja 2
+			\end{itemize}
+\end{frame}
+
+\begin{frame}{Sistemas de Referencia}{Clasificaciones de sistemas}
+	European Petroleum Survey Group (EPSG) \footnote{desde 2005: OGP}\\
+	
+	Grupo científico vinculado a la industria petrolera europea que compiló los parámetros de diferentes sistemas de coordenadas, proyecciones, y datums.	El resultado fue el Sistema de Identificador de Referencia Espacial (SRID). Este puede consultarse en \url{http://spatialreference.org} 
+\begin{table}[]
+	\centering
+	\begin{tabular}{l|c}
+		\toprule
+		Sistema           & EPSG  \\
+		\midrule
+		geográficas WGS84 & 4326  \\
+		UTM 19 S          & 32719 \\
+		POSGAR94 Faja 2   & 22172 \\
+		POSGAR98 Faja 2   & 22182 \\
+		Campo Ichauspe 2  & 22192 \\
+		Google Mercator   & 3857 
+		\bottomrule
+	\end{tabular}
+\end{table}	
+\end{frame}
+
 
 
 \end{document}
