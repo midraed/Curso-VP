@@ -107,7 +107,7 @@ Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuen
 \begin{frame}{Tipos de información espacial}{Vectorial}
 	\begin{columns}
 		\column{.45\textwidth}
-		\begin{itemize}
+		\begin{itemize}[<+->]
 			\item Pueden ser puntos, líneas o polígonos. 
 			\item Generalmente representan datos discretos, donde la precisión de la localización en el factor más importante. 
 			\item Cada entidad esta ligada a una base de datos.
@@ -123,13 +123,13 @@ Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuen
 	\begin{columns}[t]
 		\column{.45\textwidth}
 		Raster
-		\begin{itemize}
+		\begin{itemize}[<+->]
 			\item Información continua
 			\item Análisis entre capas
 		\end{itemize}
 		\column{.45\textwidth}
 		Vectorial
-		\begin{itemize}
+		\begin{itemize}[<+->]
 			\item Información discreta
 			\item Menos volumen de datos
 			\item Representación independiente de la escala
@@ -140,7 +140,7 @@ Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuen
 \section{Sistemas de Referencia}
 
 \begin{frame}{Sistemas de Referencia}
-	\begin{itemize}
+	\begin{itemize}[<+->]
 		\item Es un conjunto de normas y convenciones que permite ubicar un punto en el espacio.
 		\item Está compuesto por: 
 		\begin{itemize}
@@ -178,7 +178,7 @@ Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuen
 \end{frame}
 
 \begin{frame}{Sistemas de Referencia}{Proyección cartográfica}
-		\begin{itemize}
+		\begin{itemize}[<+->]
 			\item Proyecciones conformes: conservan los ángulos. Se utilizan para la navegación. Son útiles para las representaciones de las características geológicas.
 			\item Proyecciones equivalentes: conservan las superficies.
 			\item Proyecciones equidistantes: conservan las distancias.
@@ -213,7 +213,7 @@ Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuen
 			\end{itemize}
 \end{frame}
 
-\begin{frame}{Sistemas de Referencia}{Clasificaciones de sistemas}
+\begin{frame}{Sistemas de Referencia}{Clasificaciones de SRCs}
 	European Petroleum Survey Group (EPSG) \footnote{desde 2005: OGP}\\
 	
 	Grupo científico vinculado a la industria petrolera europea que compiló los parámetros de diferentes sistemas de coordenadas, proyecciones, y datums.	El resultado fue el Sistema de Identificador de Referencia Espacial (SRID). Este puede consultarse en \url{http://spatialreference.org} 
@@ -234,7 +234,78 @@ Un Sistema de Información Geográfica (SIG o GIS)\footnote{{\footnotesize }Fuen
 \end{table}	
 \end{frame}
 
+\section{Formatos}
 
+\begin{frame}{Los formatos}
+	\begin{columns}[t]
+			\column{.45\textwidth}
+			Formatos Vectoriales
+			\begin{itemize}
+				\item Shapefile 
+				\item KML / KMZ 
+				\item DXF
+				\item GDBs (Features)
+			\end{itemize}
+			\column{.45\textwidth}
+			Formatos Raster
+			\begin{itemize}
+				\item IMG (Erdas Imagine)
+				\item TIF / GeoTIFF
+				\item FastFormat
+				\item GRID
+				\item GDBs (BLOBs)
+			\end{itemize}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Formatos Vectoriales}
+	\begin{itemize}[<+->]
+		\item Shapefile: Formato más difundido. Estándar de facto. Es un formato propietario abierto desarrollado por ESRI. Almacena los datos geográficos y los atributos asociados a ellos. Consta de varios archivos:
+		\begin{itemize}
+			\item .shx: índice
+			\item .dbf: datos temáticos
+			\item .prj: proyección cartográfica
+			\item .shp.xml: metadatos
+			\item y otros \ldots
+		\end{itemize}.shp: entidades geográficas
+		\item Problemas: No almacena topología. Suele quedarse alguno al enviar por correo.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Formatos Vectoriales}
+	\begin{itemize}[<+->]
+		\item Kml / Kmz: Utilizado por Google Earth, almacena datos en 3 dimensiones. Almacena poca información temática. Basado en xml. Estándar abierto (OGC). Da algunos problemas al convertir a otros formatos.
+		\item DXF: Formato CAD. No almacena proyecciones cartográficas.
+		\item Geodatabases: Es la tendencia actual. Almacenan topologías y pueden compartir información. Las relaciones entre las capas también son almacenadas.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Formatos raster}
+	\begin{itemize}[<+->]
+		\item IMG: Desarrollado por Leica. Formato abierto, bastante generalizado. Admite compresión.
+		\item TIFF / GeoTIFF: Desarrollado por el JPL-NASA. No admite compresión. Formato abierto y muy generalizado. Es un TIFF con información geográfica, puede ser abierto como un TIFF normal. 
+		\item FastFormat: Formato de distribución de imágenes Landsat. Casi en desuso. Incluye el header de la imagen.
+		\item GRID: Desarrollado por ESRI. Problemas de interconvertibilidad. Suele corromperse al copiarlo a otra carpeta.
+		\item GDB: Los raster presentan problemas al almacenarlos en una GDB por las limitaciones de volumen de datos de las mismas.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Formatos Web}
+	\begin{itemize}[<+->]
+		\item WMS (Web Map Service) permite incorporar a través de internet, información geográfica a un GIS. 
+		\item WMS no “sirve” directamente los datos espaciales, sino que envía pequeños mosaicos como imagen de la información.
+		\item De esta forma la información es protegida y sólo se puede incorporar para visualización. Por lo que no es posible ni analizarla ni editarla.
+		\item Existe una versión del protocolo que permite la edición, llamado WFS.  
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Formatos Web}
+	\begin{itemize}[<+->]
+		\item El INTA pone a disposición de los usuarios en formato WMS mucha información como mapas de suelos, cobertura vegetal, información climática a través de la plataforma geoINTA.
+		\item \url{http://geointa.inta.gov.ar/geoserver/wms}
+		\item Esta información también puede visualizarse en el navegador web en geointa.inta.gob.ar
+	\end{itemize}
+\end{frame}
 
 \end{document}
 
