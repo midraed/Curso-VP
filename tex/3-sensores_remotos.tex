@@ -8,6 +8,9 @@
 \usepackage[T1]{fontenc} % hyphenation 
 \usepackage{times}
 \usepackage{tikz}
+\usepackage{fourier}
+\usepackage{gensymb}
+\usepackage{amsmath}
 
 \setbeamercovered{dynamic}
 
@@ -79,13 +82,154 @@
 	\includegraphics[width=0.4\textwidth]{IMGs/VISNIR}
 \end{frame}
 
-
+\begin{frame}{Inconvenientes}
+	\begin{itemize}
+		\item Requieren calibración.
+		\item Cobertura nubosa.
+		\item Frecuencia de adquisición.
+		\item Resolución espacial.
+		\item Resolución espectral.
+	\end{itemize}
+\end{frame}
 
 \section{Principios físicos}
 
+\begin{frame}{Tipos de procesos en teledetección}
+	\includegraphics[width=\textwidth]{IMGs/procesos}
+\end{frame}
+
+\begin{frame}{Las ondas electromagnéticas}
+	\includegraphics[width=\textwidth]{IMGs/ondas}
+\end{frame}
+
+\begin{frame}{El espectro electromagnético}
+	\includegraphics[width=\textwidth]{IMGs/espectro}
+\end{frame}
+
+\begin{frame}{Emitancia radiativa del cuerpo negro}
+	\includegraphics[width=\textwidth]{IMGs/law1}
+\end{frame}
+
+\begin{frame}{Emitancia radiativa del sol}
+	\centering
+	\includegraphics[width=0.6\textwidth]{IMGs/law2}
+\end{frame}
+
+\begin{frame}{Dispersión atmosférica}
+	\begin{columns}
+				\column{.45\textwidth}
+				\begin{itemize}
+					\item Factores:
+					\begin{itemize}
+						\item Vapor de agua.
+						\item Partículas en suspensión.
+					\end{itemize}
+					\item Tipos:
+					\begin{itemize}
+						\item Rayleigh: $\sigma$ < $\lambda$ . Afecta a las más cortas y es la más intensa: cielo.
+						\item Mie: $\sigma$ 0 $\lambda$. Afectan a mayores $\lambda$: aerosoles y polvo atmosférico).
+						\item No selectiva. $\sigma$ > $\lambda$. Por igual en cualquier $\lambda$: nubes
+					\end{itemize}
+					
+				\end{itemize}
+				\column{.45\textwidth}
+				\includegraphics[width=0.5\textwidth]{IMGs/dispersion}\\
+				\bigskip
+				\includegraphics[width=0.7\textwidth]{IMGs/solar_spectrum}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{El flujo incidente}
+	\begin{columns}
+		\column{.45\textwidth}
+		\includegraphics[width=\textwidth]{IMGs/flujo}
+		\column{.45\textwidth}
+		\begin{align}
+		\phi_i & =  \phi_r + \phi_a + \phi_t \notag \\
+		\frac{\phi_i}{\phi_i} & =  \frac{\phi_r}{\phi_i} + \frac{\phi_a}{\phi_i} + \frac{\phi_t}{\phi_i} \notag \\
+		1 & =  \rho + \alpha + \tau \notag  \\
+		1 & =  \rho_\lambda + \alpha_\lambda + \tau_\lambda \notag 
+		\end{align}	
+	\end{columns}
+	\bigskip
+	{\footnotesize Donde $\phi_i$ es el flujo incidente, $\phi_r$ es el flujo reflejado, $\phi_a$ es el flujo absorvido y $\phi_t$ es el flujo trasmitido.}
+\end{frame}
+
+\begin{frame}{Factores que inciden en la reflexión de las cubiertas}
+	\begin{itemize}
+		\item Elementos que absorben (agua, pigmentos, minerales).
+		\item Rugosidad superficial (reflectividad lambertiana o especular).
+		\item Ángulos de observación e iluminación.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Tipos de reflectores}
+	\centering
+	\includegraphics[width=0.8\textwidth]{IMGs/reflectores}
+\end{frame}
+
 \section{Reflectancia y vegetación}
 
+\begin{frame}{La reflectancia en la vegetación}
+	\begin{itemize}
+		\item Factores que dependen de la canopia.
+		\begin{itemize}
+			\item Proporción hoja / tallos / suelo
+			\item Geometría de las hojas.
+			\item Ángulos de observación.
+		\end{itemize}
+		\item Factores que dependen de la hoja.
+		\begin{itemize}
+			\item Pigmentos.
+			\item Estructura de la hoja.
+			\item Humedad
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Curva característica de una hoja}
+	\centering
+	\includegraphics[width=0.9\textwidth]{IMGs/curvahoja}
+\end{frame}
+
+\begin{frame}{Reflectividad en la hoja}
+	\centering
+	\includegraphics[width=1\textwidth]{IMGs/reflechoja}
+\end{frame}
+
+\begin{frame}{Estructura de la hoja y la luz}
+	\centering
+	\includegraphics[width=0.8\textwidth]{IMGs/hojayluz}
+\end{frame}
+
+\begin{frame}{Firmas espectrales}
+	\centering
+	\includegraphics[width=1\textwidth]{IMGs/vegetacion}
+\end{frame}
+
+\begin{frame}{Firmas espectrales}
+	\begin{columns}
+		\column{.45\textwidth}
+		\includegraphics[width=1\textwidth]{IMGs/especies}
+		\column{.45\textwidth}
+		\includegraphics<2>[width=0.8\textwidth]{IMGs/leafdamage}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Arquitectura}
+	\begin{columns}
+		\column{.45\textwidth}
+		\includegraphics[width=1\textwidth]{IMGs/geometria}
+		\column{.45\textwidth}
+		\includegraphics<2>[width=1\textwidth]{IMGs/dosel}
+	\end{columns}
+\end{frame}
+
+
+
 \section{Sensores Remotos}
+
+
 
 \section{Radares}
 
