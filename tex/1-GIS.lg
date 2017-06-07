@@ -1,0 +1,18 @@
+htfcss: pcrr8t font-weight: bold;
+htfcss: phvr8t  font-family: sans-serif;
+htfcss: phvr8t  font-family: sans-serif;
+htfcss: phvro8t  font-family: sans-serif;    font-style: oblique;
+htfcss: phvr8t  font-family: sans-serif;
+htfcss: phvr8t  font-family: sans-serif;
+htfcss: phvr8t  font-family: sans-serif;
+htfcss: phvr8t  font-family: sans-serif;
+File: 1-GIS.html
+--- characters ---
+Font("phvr8t","","10","109")
+Font("phvr8t","","10","60")
+Font("phvr8t","","10","144")
+Font("phvr8t","","10","80")
+Font("phvro8t","","10","109")
+Font("phvr8t","","10","90")
+Font("phvr8t","","10","100")
+Font("pcrr8t","","10","109")
