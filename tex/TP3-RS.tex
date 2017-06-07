@@ -1,0 +1,104 @@
+\documentclass[onecolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[cmex10]{amsmath}
+\usepackage[spanish]{babel}
+\usepackage{mdframed}
+\usepackage{url}
+
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+%opening
+\title{TP3 - Sensores remotos}
+\author{Guillermo Federico Olmedo}
+\date{17 de mayo de 2016}
+
+\begin{document}
+\markboth{Curso de Zonificación Vitícola y Viticultura de precisión - 2016}{}
+
+\maketitle
+
+\tableofcontents
+\bigskip
+
+\textbf{Los archivos necesarios para completar este trabajo práctico se encuentran en la carpeta de “Datos/TP3”. }\\
+
+\begin{mdframed}
+	Para completar con éxito este ejercicio, debe escribir un informe con las respuestas a las preguntas que aparecen en cajas como esta. El informe debe remitirse en formato pdf por correo electrónico a: \url{olmedo.guillermo@inta.gob.ar}
+\end{mdframed}
+
+\section{Caracteríticas de los sensores}
+
+Utilice internet y los materiales del curso para investigar cual es la resolución espacial, temporal y radiométrica de 2 sensores satelitales, por ejemplo: Landsat 7, Landsat 8, Spot-5, Spot-6, MODIS Terra.
+
+\begin{mdframed}[]
+	Pregunta 1: Para cada uno de los satelites seleccionados: Cuantas imágenes en teoría podría tener durante el ciclo de la vid? Si el objetivo es utilizar las imágenes para luego del detenimiento del crecimiento, evaluar el vigor, cuantas imágenes necesitaría? Y si pudiera estimar el Kc con las imagénes y de esta forma mejorar el riego: cuantás imágenes necesitaría?
+\end{mdframed}
+
+\section{Georreferenciación}
+
+Carge la imagen sauvignon.img de la carpeta de Datos/TP3. Esta imagen corresponde a una fotografía aérea del sector nor-este de la imagen QB\_Finca\_19s.tif utilizada en el práctico anterior. Observe la figura \ref{fig:rotada} de esta guía de trabajos prácticos. Podrá notar que la imagen esta rotada 90 grados. \\
+
+Luego de cargar la imagen en QGIS, haga zoom a esa imagen. Observe las coordenadas de la esquina superior-izquierda. Ahora observe las coordenadas de la esquina inferior-derecha. Como dato, la imagen tiene 1024 x 1024 píxeles y no esta georreferenciada. En este ejercicio vamos a georreferenciar esta imagen.
+
+Cargue en QGIS, la imagen QB\_Finca\_19s.tif que utilizaremos como imagen base. Ademas, utilizando el administrador de complementos, en el menú complementos vamos a habilitar "Georreferenciador GDAL".
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{IMGs/rotada}
+	\caption{Comparación entre la imagen aérea y Google Earth}
+	\label{fig:rotada}
+\end{figure}
+
+Abrimos el Georreferenciador, que se encuentra en el menú Raster. Luego, cargamos en el mismo la imagen sauvignon.img. Lo primero que vamos a definir es la configuración de la transformación. Esto lo podemos hacer desde el menú configuración o desde uno de los botones de la barra. Para este ejercicio, y este problema podemos trabajar con una transformación lineal, y el remuestreo en "vecino más próximo". Como SRE de destino, seleccionamos el de la imagen QB\_Finca\_19s.tif\footnote{Para este ejercicio, es recomendable que la proyección al vuelo este apagada}. También elegimos el nombre del archivo de salida como sauvignon\_geo.tif y marcamos la casilla de "Cargar en QGIS cuando este hecho".\\
+
+El proceso de georreferenciación consiste en seleccionar puntos en la imagen a referenciar y darles coordenadas. El modelo lineal sólo requiere 3 puntos. Con la herramienta de "Añadir puntos" podemos digitalizar un punto en la imagen. Luego de esto nos pedirá las coordenadas reales de ese punto. En este caso podemos utilizar "A partir del lienzo del mapa" para digitalizar el mismo punto en la imagen de referencia. Cuando tengamos 3 puntos el modelo estimará el residuo del modelo para cada punto. Podemos entonces, eliminar puntos que no sean muy precisos. Cuando tengamos al menos 3 puntos, bien distribuidos en la imagen, podemos presionar "Comenzar georreferenciado" para aplicar el modelo a la imagen.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{IMGs/georreferenciador}
+	\caption{La ventana del georreferenciador}
+	\label{fig:rotada}
+\end{figure}
+
+\begin{mdframed}[]
+	Pregunta 2: Inserte en el informe una captura de pantalla, o un mapa donde se observe la imagen sauvignon\_geo.tif superpuesta sobre QB\_Finca\_19s.tif. En la barra de estado del Georreferenciador (abajo), puede leer el Error Medio. Anote este valor en el informe.
+\end{mdframed}
+
+\section{Reproyectar}
+
+Ahora debemos tener cargada en nuestro QGIS la imagen resultado del trabajo anterior. Esta imagen fue georreferenciada al sistema de la imagen de referencia: ......... Sin embargo, para utilizarla en nuestro proyecto, y no tener que trabajar con proyecciones al-vuelo, vamos a reproyectarla a EPSG:22172
+
+Para esto utilice la herramienta "Combar (reproyectar)", del menú raster. Llame a la imagen resultante sauvignon\_p98.tif.
+
+\section{Cortar}
+
+Para este ejercicio necesitamos la parcela sa sauvignon blanc, del vectorial Parcelas.shp del ejercicio anterior. Genere un archivo con sólo esta parcela. Hay varias opciones: puede copiar el archivo y borrar todas las parcelas; puede generar un archivo nuevo y pegar esa parcela; o puede utilizar la opción filtrar. Lo recomendado es que explore la opción filtrar, en el menú contextual de la capa Parcelas.shp. Esta opción nos permite filtrar el archivo por el valor de una campo. Como dato el OBJETID de la parcela de interés es el 7.
+
+\begin{mdframed}[]
+	Pregunta 3: Que ventaja presenta usar la opción filtrar con respecto a las otras opciones?
+\end{mdframed}
+
+Cuando tengamos esta capa vectorial de polígonos, vamos a utilizar la herramienta Extracción/Clipper del menú Raster para cortar la imagen y obtener sólo los pixeles de la parcela. Guarde el resultado del corte como recorte.tif.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{IMGs/clipper}
+	\caption{La herramienta Clipper}
+\end{figure}
+
+\section{Índices verdes}
+
+Ahora vamos a calcular un índice verde sobre el resultado de esta imagen. En este caso vamos a utilizar el índice NDVI. La formula de este índice es:
+
+\begin{equation}
+NDVI = \frac{NIR - Red}{NIR + Red}
+\end{equation}
+
+En la imagen sauvignon.tif, la banda 3 corresponde al rojo y la banda 4 al infrarrojo cercano (NIR). Utilice la calculadora de raster para realizar esta operación. Como imagen base utilice recorte.tif, y al resultado llamele sauvignon\_ndvi.tif.
+
+\begin{mdframed}[]
+	Pregunta 4: Inserte una imagen del resultado en el reporte. Además, utilizando la herramienta Miscelánea/Información, del menú raster, obtenga algunos estadísticos descriptivos del resultado.
+\end{mdframed}
+
+\end{document}

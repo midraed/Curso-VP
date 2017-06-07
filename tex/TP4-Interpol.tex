@@ -1,0 +1,124 @@
+\documentclass[onecolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[cmex10]{amsmath}
+\usepackage[spanish]{babel}
+\usepackage{mdframed}
+\usepackage{url}
+
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+%opening
+\title{TP5 - Interpolación espacial en QGIS}
+\author{Guillermo Federico Olmedo}
+
+
+\begin{document}
+\markboth{Curso de Geomática y Agricultura de precisión - 2016}{}
+
+\maketitle
+
+\tableofcontents
+\bigskip
+
+\textbf{Los archivos necesarios para completar este trabajo práctico se encuentran en la carpeta de “Datos/TP3”. }\\
+
+\begin{mdframed}
+	Para completar con éxito este ejercicio, debe escribir un informe con las respuestas a las preguntas que aparecen en cajas como esta. El informe debe remitirse en formato pdf por correo electrónico a: \url{olmedo.guillermo@inta.gob.ar}
+\end{mdframed}
+
+\section{Estudio de los datos}
+
+Antes de realizar las interpolaciones vamos a hacer uns estudio rápido de la variable de interés. Para esto vamos a cargar el archivo EM38\_CEA.shp de la carpeta Datos/TP4. 
+
+Vamos a representar los datos con una paleta graduada utilizando la columna QV. Utilice 5 clases por cuantiles y colores verde a rojo.
+
+\begin{mdframed}[]
+	Pregunta 1: Observa algún comportamiento espacial en los datos o los valores parecen estar distribuidos la azar? Hay zonas con agrupamientos de mayores valores?
+\end{mdframed}
+
+\section{Interpolación por IDW}
+
+Para la interpolación por inverso a la distancia vamos a utilizar un complemento de QGIS. Este complemento al igual que el Georreferenciador del TP3, esta instalado, pero no habilitado. Vamos a habilitarlo utilizando el administrador de complementos. El complemento se llama "Complemento de Interpolación". \\
+
+Luego ejecutamos el complemento Interpolación desde el menú Raster. 
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=1\linewidth]{IMGs/interpola}
+	\caption{El complemento de interpolación de QGIS}
+\end{figure}
+
+En el complemento de interpolación, vamos a seleccionar la capa vectorial EM38\_CEA, y el atributo QV que corresponde a la CEa vertical. Luego pulsamos añadir para añadirla a las capas a inteporlar.
+En el método de inteprolación elegimos "Ponderación inversa a la distancia". Con el boton de la herramienta podemos cambiar el coeficiente de ponderación. 
+Con respecto a la extensión de area a interpolar, podemos dejar los valores por defecto. Marcamos la casilla de "Añadir resultados" y le damos un nombre al archivo de salida.
+
+\begin{mdframed}[]
+	Pregunta 2: Cuando variamos el coeficiente de ponderación de 2 a 3, la interpolación es mas suave o mas abrupta? 
+\end{mdframed}
+
+\section{Interpolación con Kriging Ordinario}
+
+Como vimos en la teoría el procedimiento recomendado para la interpolación con kriging consiste en varias etapas.
+
+Para este ejercicio utilizaremos un complemento de QGIS realizado en R. Este puede ser descargado de la web en  \url{https://github.com/INTA-Suelos/QGIS-R-Geostatistics}.
+
+\subsection{Modelado del variograma}
+
+Como primer ejercicio vamos a modelar el variograma de los datos utilizados en el ejercicio anterior.\\
+
+Para esto vamos a ejecutar el algoritmo de R "Variogram Modelling". Puede consultar la pestaña de ayuda para ver el significado de cada variable. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{IMGs/variomod}
+	\caption{Variogram modelling de QGIS-R-Geostatistics}
+\end{figure}
+
+Como primera aproximación vamos a dejar que R estime los parámetros de variograma. Para esto dejamos marcada la casilla "Estimate range and psill initial values". Además para tener una medida del ajuste del modelo al variograma muestral, vamos a marcar la casilla "Show sum of square errors" al final del algoritmo.
+
+Cuando termine de procesar, podemos ver una ventana con los parámetros del variograma y el valor del suma de los cuadrados de los errores (SSE). \\
+
+Tome nota de los parámetros del variograma y del SSE.\\
+
+También podemos observar el grafico del modelo de variograma con respecto al variograma muestral. A partir de este gráfico podemos estimar visualmente los valores de rango, pepita y nugget.
+
+Ahora, corra de nuevo el variograma, y esta vez desactive la casilla "Estimate range and psill initial values" y escriba su estimación de nugget, range y psill en las casillas correspondientes. Marque ademas la casilla para obtener el SSE. Luego de correr el algoritmo, los valores provistos por Ud serán ajustados por mínimos cuadrados. En la ventana de salida, se mostrarán los valores finales del modelo.
+
+\begin{mdframed}[]
+	Pregunta 3: Cuales fueron los valores de nugget, psill y range de los modelos automático y el ajustado por Ud? Y los valores de SSE? Que modelo es más adecuado?
+\end{mdframed}
+
+\subsection{Interpolación}
+
+Para la intepolación por kriging ordinario vamos a utilizar el algoritmo de R "Ordinary Kriging". Nuevamente es recomendable consultar la pestaña de ayuda para comprender el uso de cada parámetro. \\
+
+La primera parte de la interfaz del algoritmo, nos permite modelar el variograma. Esto es exactamente igual que en el algoritmo anterior. En este caso vamos a introducir los parámetros del modelo seleccionado en el ejercicio anterior. Y también vamos a marcar la casilla para obtener el SSE como parámetro de ajuste del modelo al variograma muestral.\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{IMGs/OK}
+	\caption{Ordinary Kriging de QGIS-R-Geostatistics}
+\end{figure}
+
+Los siguientes parámetros del algoritmo permite elegir el método para obtener el área a interpolar: a partir de la extensión de la capa, o del área mínima que contiene a los puntos.
+
+Además el parámetro "Local kriging" permite limitar la interpolación a puntos cercanos. \\
+
+Realice la interpolación de la variable QV1, utilizando diferentes métodos para la extensión y activando el parámetro "Local Kriging".
+
+En los últimos parámetros del algoritmo puede observar que los 4 resultados se guardaran en archivos temporales. Si lo desea puede darle un nombre a cada resultado y de esta forma podrá guardarlos en el disco.
+
+\subsection{Validación Cruzada}
+
+Finalmente utilizaremos el algoritmo para validación cruzada. Este algoritmo entrega como resultado la raíz cuadrada del error cuadrado medio (RMSE). Vamos a comparar el modelo utilizado en la interpolación con y sin "Local Kriging". Tome nota de los valores de RMSE.
+
+\begin{mdframed}[]
+	Pregunta 4: Que modelo final utilizó para interpolar? Cuales fueron los párametros del variograma? Y el SSE? Cual fue el resultado del RMSE con la validación cruzada?
+	Si observamos la varianza de la predicción: esta es constante para toda la interpolación? A que parece estar muy relacionada?
+	Genere un imagen del mapa de la interpolación final, con leyenda y insertela en el reporte de este TP.
+\end{mdframed}
+
+
+\end{document}
